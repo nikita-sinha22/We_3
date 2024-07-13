@@ -1,9 +1,10 @@
 import React from 'react'
+import './App.css';
+import Home from './components/HomePage/Home'
 
 function App() {
   return (
-    <div>App</div>
+      <Home></Home>
   )
 }
-
 export default App
