@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Navbar from './HomePage/Navbar';
 import Footer from './Footer';
 
-function MagicPointsDisplay({ magicPoints }) {
+function MagicPointsDisplay() {
+  const [magicPoints, setMagicPoints] = useState(0);
   const navigate = useNavigate();
+  const username = 'player1'; 
+
+  useEffect(() => {
+    axios.get(`http://localhost:5000/magicpoints/${username}`)
+      .then(response => setMagicPoints(response.data.magicPoints))
+      .catch(error => console.error('There was an error fetching the magic points!', error));
+  }, [username]);
 
   const backhome = () => {
     navigate('/');
@@ -18,8 +27,7 @@ function MagicPointsDisplay({ magicPoints }) {
         <div className="flex flex-col items-center">
           <p>Welcome to the SuperCoin section! Here you can view and manage your SuperCoins.</p>
           <div className="flex items-center mb-4">
-            {/* <img src="/path/to/supercoin-icon.png" alt="SuperCoin" className="h-12 w-12 mr-2" /> */}
-            <span className="text-xl font-bold py-6">100 MagicPoints</span>
+            <span className="text-xl font-bold py-6">{magicPoints} MagicPoints</span>
           </div>
           <div className="mt-4">
             <button className="px-4 py-2 bg-blue-500 text-white rounded">Redeem MagicPoints</button>
@@ -32,3 +40,4 @@ function MagicPointsDisplay({ magicPoints }) {
 }
 
 export default MagicPointsDisplay;
+
