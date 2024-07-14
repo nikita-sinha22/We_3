@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const initialGrid = () => {
   const icons = ["👕", "👖", "👗", "👔", "👠", "👒", "🧢", "👟"];
@@ -9,6 +10,7 @@ const initialGrid = () => {
 
 function Memory() {
   const navigate = useNavigate();
+  const username = 'player1'; 
 
   const backgame = () => {
     navigate('/game');
@@ -22,8 +24,12 @@ function Memory() {
   useEffect(() => {
     if (matched.length === grid.length && matched.length > 0) {
       setGameWon(true);
+      const points = 10;
+      axios.post('http://localhost:5000/magicpoints', { username, points })
+        .then(response => console.log(response.data))
+        .catch(error => console.error('There was an error updating the magic points!', error));
     }
-  }, [matched, grid.length]);
+  }, [matched, grid.length, username]);
 
   const handleFlip = (index) => {
     if (flipped.length === 2 || matched.includes(index) || flipped.includes(index)) return;
@@ -73,25 +79,21 @@ function Memory() {
         </div>
       )}
       
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 mb-4"
-          onClick={resetGame}
-        >
-          Reset Game
-        </button>
-        <br />
-        <button
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"
-          onClick={backgame}
-        >
-          Back to Game Lounge
-        </button>
-      </div>
-    
+      <button
+        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 mb-4"
+        onClick={resetGame}
+      >
+        Reset Game
+      </button>
+      <br />
+      <button
+        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"
+        onClick={backgame}
+      >
+        Back to Game Lounge
+      </button>
+    </div>
   );
 }
 
 export default Memory;
-
-
-

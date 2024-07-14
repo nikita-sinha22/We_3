@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import Square from './Square';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const TicTacToeBoard = () => {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [xIsNext, setXIsNext] = useState(true);
   const [magicPoints, setMagicPoints] = useState(0);
   const navigate = useNavigate();
+  const username = 'player1'; 
 
   const backgame = () => {
     navigate('/game');
@@ -23,7 +25,11 @@ const TicTacToeBoard = () => {
     
     const winner = calculateWinner(newSquares);
     if (winner) {
-      setMagicPoints(magicPoints + 10); // Award 10 magic points on winning
+      const points = 10;
+      setMagicPoints(magicPoints + points); 
+      axios.post('http://localhost:5000/magicpoints', { username, points })
+        .then(response => console.log(response.data))
+        .catch(error => console.error('There was an error updating the magic points!', error));
     }
   };
 
@@ -62,7 +68,7 @@ const TicTacToeBoard = () => {
         className="reset-button mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={() => {
           setSquares(Array(9).fill(null));
-          setMagicPoints(0); // Reset magic points on reset
+          setMagicPoints(0); 
         }}
       >
         Reset
@@ -99,4 +105,5 @@ const calculateWinner = (squares) => {
 };
 
 export default TicTacToeBoard;
+
 
