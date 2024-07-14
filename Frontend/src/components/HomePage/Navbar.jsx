@@ -9,16 +9,16 @@ function Navbar() {
             </div>
             <div className='w-[50%]  flex flex-row items-center'>
                 <div className='px-[10px] cursor-pointer'>
-                    <a className='font-bold'>HOME</a>
+                    <a href='/' className='font-bold'>HOME</a>
                 </div>
                 <div className='px-[10px] cursor-pointer'>
-                    <a className='font-bold'>GAMES</a>
+                    <a href="/game" className='font-bold' >GAMES</a>
                 </div>
                 <div className='px-[10px] cursor-pointer'>
-                    <a className='font-bold'>COINS</a>
+                    <a href="/coin" className='font-bold'>COINS</a>
                 </div>
                 <div className='px-[10px] cursor-pointer'>
-                    <a className='font-bold'>TRENDY STYLES</a>
+                    <a href="/trendy" className='font-bold'>TRENDY STYLES</a>
                 </div>
 
             </div>
