@@ -24,8 +24,9 @@ To run the project locally, follow these steps:
 ## Technologies Used
 
 * **MERN**: A full-stack development framework using MongoDB, ExpressJS, ReactJS, and NodeJS
+* **HTML**: To design the structure and content of web pages
 * **Tailwind CSS**: For styling and layout
-* **JavaScript**: The language of the web.
+* **JavaScript**: The language of the web
 
 
 ## Contributers
